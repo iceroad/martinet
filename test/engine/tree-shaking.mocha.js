@@ -5,6 +5,7 @@ const _ = require('lodash'),
   json = JSON.stringify,
   path = require('path'),
   spawnSync = require('child_process').spawnSync,
+  readBuildSpec = require('../../lib/engine/readBuildSpec'),
   temp = require('temp'),
   Engine = require('../../lib/engine/Engine')
   ;
@@ -21,7 +22,7 @@ describe('Engine: Webpack tree-shaking', function() {
   it('should compile a simple JS file with tree-shaking (prod)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'single-js');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'prod');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'prod', projRoot);
     engine.build((err, allStats) => {
       if (err) {
         console.error(allStats);
@@ -54,10 +55,11 @@ describe('Engine: Webpack tree-shaking', function() {
 
       // Check file dependencies.
       const fileDeps = _.get(stats, 'compilation.fileDependencies', []);
-      assert.strictEqual(fileDeps.length, 6);
+      assert.strictEqual(fileDeps.length, 7);
       assert.deepEqual(
           _.sortBy(_.map(fileDeps, absPath => path.basename(absPath))),
-          ['entry.js', 'global.js', 'index.html', 'library.js', 'lodash.js', 'module.js']);
+          ['entry.js', 'global.js', 'index.html', 'library.js',
+          'lodash.js', 'martinet_imports.js', 'module.js']);
 
       // Finally execute bundle using node.
       const rv = spawnSync(process.execPath, [bundlePath], { stdio: 'pipe' });
@@ -73,7 +75,7 @@ describe('Engine: Webpack tree-shaking', function() {
   it('should compile a simple JS file without tree-shaking (dev)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'single-js');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'dev');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'dev', projRoot);
     engine.build((err, allStats) => {
       if (err) {
         console.error(allStats);
@@ -101,7 +103,7 @@ describe('Engine: Webpack tree-shaking', function() {
 
       // Check file dependencies.
       const fileDeps = _.get(stats, 'compilation.fileDependencies', []);
-      assert.strictEqual(fileDeps.length, 6);
+      assert.strictEqual(fileDeps.length, 7);
 
       return cb();
     });
@@ -111,7 +113,7 @@ describe('Engine: Webpack tree-shaking', function() {
   it('should remove unused library dependencies using import (prod)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'js-with-deps');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'prod');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'prod', projRoot);
     engine.build((err, allStats) => {
       if (err) {
         console.error(allStats);

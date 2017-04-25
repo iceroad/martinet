@@ -55,7 +55,7 @@ Webpack yourself
        * CSS/Less: Use `@import`.
        * Pug: Use `include` or `extends`.
 
-  2. **Use relative paths to reference files.** This allows the asset bundler to collect and version all your project's images, fonts, and other file dependencies. This will also ensure that your project will be loadable using the `file://` protocol in browsers, a requirement for [Apache Cordova](https://cordova.apache.org/). And finally, using relative paths makes the output distribution self-contained, allowing a larger site to be broken up into smaller projects.
+  2. **Use relative paths to reference your project's modules and resources.** This allows the asset bundler to collect and version all your project's images, fonts, and other file dependencies. This will also ensure that your project will be loadable using the `file://` protocol in browsers, a requirement for [Apache Cordova](https://cordova.apache.org/). And finally, using relative paths makes the output distribution self-contained, allowing a larger site to be broken up into smaller projects.
 
        * Javascript/Typescript: `import { SomeModule } from '../SomeDirectory';`
        * Pug: `img(src="../../img/my-image.png")`
@@ -64,7 +64,9 @@ Webpack yourself
   3. Use `npm` to install third-party dependencies like jQuery, Angular, or Lodash in your project's root directory. This will install your project's dependencies to a `node_modules` folder inside your project. You do not have to include a relative path in this case.
 
        * Javascript/Typescript: `import { map } from 'lodash/map';`
-       * CSS: `@import 'bootstrap';`
-       * Less: `@import 'bootstrap/less/bootstrap.less';`
+       * CSS: `@import '~bootstrap';`  **note the tilde (~)**
+       * Less: `@import '~bootstrap/less/bootstrap.less';`
+       * Pug: not applicable
+
 
 ----

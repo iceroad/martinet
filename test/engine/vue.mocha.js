@@ -5,6 +5,7 @@ const _ = require('lodash'),
   json = JSON.stringify,
   path = require('path'),
   spawnSync = require('child_process').spawnSync,
+  readBuildSpec = require('../../lib/engine/readBuildSpec'),
   temp = require('temp'),
   Engine = require('../../lib/engine')
   ;
@@ -21,7 +22,7 @@ describe('Engine: Vue single-file components support', function() {
   it('should compile a single-file .vue component (prod)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'vue-components');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'prod');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'prod', projRoot);
     engine.build((err, allStats) => {
       const stats = allStats[0];
 
@@ -68,7 +69,7 @@ describe('Engine: Vue single-file components support', function() {
   it('should compile a single-file .vue component (dev)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'vue-components');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'dev');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'dev', projRoot);
     engine.build((err, allStats) => {
       const stats = allStats[0];
 
