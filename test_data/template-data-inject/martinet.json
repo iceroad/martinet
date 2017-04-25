@@ -1,0 +1,13 @@
+{
+  "pages": [
+    {
+      "src": "index.pug",
+      "data": ["data.json"],
+      "dist": "index.html"
+    },
+    {
+      "src": "index.pug",
+      "dist": "no-data.html"
+    }
+  ]
+}
