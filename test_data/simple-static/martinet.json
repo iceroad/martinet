@@ -1,0 +1,29 @@
+{
+  "pages": [
+    {
+      "src": "index.pug",
+      "styles": ["css/style.css", "css/more-style.less"],
+      "scripts": ["js/app.js"],
+      "data": ["data/sample.json"],
+      "dist": "nested/inner/index.html"
+    },
+    {
+      "src": "pages/about.pug",
+      "styles": ["css/style.css", "css/more-style.less"],
+      "scripts": ["js/app.js"],
+      "data": ["data/sample.json"],
+      "dist": "nested/inner/about.html"
+    },
+    {
+      "src": "index.pug",
+      "styles": ["css/style.css", "css/more-style.less"],
+      "scripts": ["js/app.js"],
+      "data": ["data/sample.json"],
+      "dist": "index.html"
+    }
+  ],
+  "verbatim": [
+    "static",
+    {"static/favicon.ico": "favicon.ico"}
+  ]
+}

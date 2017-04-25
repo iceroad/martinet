@@ -1,0 +1,12 @@
+body {
+  background-color: yellow;
+}
+
+@font-face {
+    font-family: 'jambalaya';
+    src: url(../fonts/glyphicons.woff2);
+}
+
+h2 {
+  color: red;
+}

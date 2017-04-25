@@ -1,0 +1,14 @@
+include ./partials/mixins.pug
+
+doctype
+html
+  head
+    title Test Project
+  body
+    h1 About Page
+    img(src='../img/test.jpg')
+    h2= sentinel
+    a(href='../../index.html') Home
+    a(href='https://www.baresoil.com/') External link
+
+    +MixinSentinel()

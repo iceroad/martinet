@@ -1,0 +1,9 @@
+{
+  "pages": [
+    {
+      "src": "index.html",
+      "dist": "index.html",
+      "scripts": ["entry.js"]
+    }
+  ]
+}

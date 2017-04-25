@@ -1,0 +1,16 @@
+code {
+  color: #333;
+}
+
+.panel-heading {
+  cursor: pointer;
+}
+
+.metadata {
+  font-size: 12px;
+}
+
+pre code {
+  font-size: 14px;
+  line-height: 105%;
+}
