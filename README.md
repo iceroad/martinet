@@ -22,7 +22,7 @@ This is an example of a build specification that mixes multiple template and sty
       ]
     }
 
-It processes all the pages listed in the `pages` section, producing an optimized web distribution that includes all the following features:
+Martinet processes all the pages listed in the `pages` section, producing an optimized web distribution that includes all the following features out of the box:
 
   * Modern language support: [ES2017](https://babeljs.io/docs/plugins/preset-latest/), [TypeScript](https://www.typescriptlang.org/), [LessCSS](http://lesscss.org/), [Pug](https://pugjs.org/api/getting-started.html), in addition to HTML and CSS.
   * Support for dependencies installed via `npm`.
@@ -34,7 +34,7 @@ It processes all the pages listed in the `pages` section, producing an optimized
     * [Single-file VueJs components](https://vuejs.org/v2/guide/single-file-components.html) (VueJs-2).
     * [Angular template bundler](https://github.com/TheLarkInn/angular2-template-loader) (Angular-2 and higher).
 
-The design of Martinet favors **convention-over-configuration**. The target use case is to build static sites and single-page web applications, as well as combinations of the two.
+The design of Martinet favors **convention-over-configuration**. The target use case is to build small-to-medium static sites and single-page web applications, as well as combinations of the two.
 
 ### Install
 
@@ -43,6 +43,11 @@ The design of Martinet favors **convention-over-configuration**. The target use 
 
 ## Conventions
 
+**martinet**, *n.* a person who stresses a rigid adherence to the details of forms and methods.
+
+Martinet's conventions are put in place so that you do not have to configure
+Webpack yourself
+
   1. All style and script dependencies should be included in either the build specification, or
      using language-specific import commands. Do not include internal dependencies via `<script>` and `<link>` tags in HTML.
 
@@ -50,7 +55,7 @@ The design of Martinet favors **convention-over-configuration**. The target use 
        * CSS/Less: Use `@import`.
        * Pug: Use `include` or `extends`.
 
-  2. **Use relative paths to reference files.** This allows the asset bundler to collect and version all your project's images, fonts, and other file dependencies. This will also ensure that your project will be loadable using the `file://` protocol in browsers, a requirement for [Apache Cordova](https://cordova.apache.org/).
+  2. **Use relative paths to reference files.** This allows the asset bundler to collect and version all your project's images, fonts, and other file dependencies. This will also ensure that your project will be loadable using the `file://` protocol in browsers, a requirement for [Apache Cordova](https://cordova.apache.org/). And finally, using relative paths makes the output distribution self-contained, allowing a larger site to be broken up into smaller projects.
 
        * Javascript/Typescript: `import { SomeModule } from '../SomeDirectory';`
        * Pug: `img(src="../../img/my-image.png")`
@@ -62,3 +67,4 @@ The design of Martinet favors **convention-over-configuration**. The target use 
        * CSS: `@import 'bootstrap';`
        * Less: `@import 'bootstrap/less/bootstrap.less';`
 
+----
