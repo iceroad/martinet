@@ -5,6 +5,7 @@ const _ = require('lodash'),
   json = JSON.stringify,
   path = require('path'),
   spawnSync = require('child_process').spawnSync,
+  readBuildSpec = require('../../lib/engine/readBuildSpec'),
   temp = require('temp'),
   Engine = require('../../lib/engine/Engine')
   ;
@@ -21,7 +22,7 @@ describe('Engine: Webpack tree-shaking', function() {
   it('should compile a simple JS file with tree-shaking (prod)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'single-js');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'prod');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'prod');
     engine.build((err, allStats) => {
       if (err) {
         console.error(allStats);
@@ -73,7 +74,7 @@ describe('Engine: Webpack tree-shaking', function() {
   it('should compile a simple JS file without tree-shaking (dev)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'single-js');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'dev');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'dev');
     engine.build((err, allStats) => {
       if (err) {
         console.error(allStats);
@@ -111,7 +112,7 @@ describe('Engine: Webpack tree-shaking', function() {
   it('should remove unused library dependencies using import (prod)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'js-with-deps');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'prod');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'prod');
     engine.build((err, allStats) => {
       if (err) {
         console.error(allStats);

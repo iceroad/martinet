@@ -1,0 +1,12 @@
+{
+  "paths": {
+    "src": "src"
+  },
+  "pages": [
+    {
+      "src": "templates/index.pug",
+      "dist": "index.html",
+      "scripts": ["app/greeter.ts"]
+    }
+  ]
+}

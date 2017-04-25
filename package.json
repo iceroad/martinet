@@ -58,6 +58,7 @@
     "runtype": "^0.1.4",
     "style-loader": "^0.16.1",
     "temp": "^0.8.3",
+    "typescript": "^2.2.2",
     "url-loader": "^0.5.8",
     "vue-loader": "^11.3.4",
     "vue-template-compiler": "^2.2.6",

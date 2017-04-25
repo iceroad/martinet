@@ -6,6 +6,7 @@ const _ = require('lodash'),
   log = require('../../lib/util/log'),
   json = JSON.stringify,
   path = require('path'),
+  readBuildSpec = require('../../lib/engine/readBuildSpec'),
   temp = require('temp'),
   Engine = require('../../lib/engine/Engine')
   ;
@@ -22,7 +23,7 @@ describe('Engine: simple static site generation', function() {
   it('should build a simple static site with assets (prod)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'simple-static');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'prod');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'prod');
     engine.build((err, allStats) => {
       if (err) {
         console.error(allStats);

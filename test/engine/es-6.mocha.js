@@ -4,6 +4,7 @@ const _ = require('lodash'),
   fs = require('fs'),
   json = JSON.stringify,
   path = require('path'),
+  readBuildSpec = require('../../lib/engine/readBuildSpec'),
   spawnSync = require('child_process').spawnSync,
   temp = require('temp'),
   Engine = require('../../lib/engine')
@@ -21,7 +22,7 @@ describe('Engine: ES6 support via Babel', function() {
   it('should compile a simple ES6 JS file (prod)', (cb) => {
     const projRoot = path.join(TEST_DATA, 'es6-js');
     const outputRoot = temp.mkdirSync();
-    const engine = new Engine(projRoot, outputRoot, 'prod');
+    const engine = new Engine(readBuildSpec(projRoot), outputRoot, 'prod');
     engine.build((err, allStats) => {
       const stats = allStats[0];
 
