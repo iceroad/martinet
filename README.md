@@ -1,5 +1,6 @@
 # Martinet
 
+[![Build Status](https://travis-ci.org/iceroad/martinet.svg?branch=master)](https://travis-ci.org/iceroad/martinet)
 [![bitHound Code](https://www.bithound.io/github/iceroad/martinet/badges/code.svg)](https://www.bithound.io/github/iceroad/martinet)
 [![bitHound Overall Score](https://www.bithound.io/github/iceroad/martinet/badges/score.svg)](https://www.bithound.io/github/iceroad/martinet)
 [![bitHound Dependencies](https://www.bithound.io/github/iceroad/martinet/badges/dependencies.svg)](https://www.bithound.io/github/iceroad/martinet/master/dependencies/npm)
