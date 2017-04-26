@@ -12,7 +12,20 @@
     <div class="container-fluid" ng-controller="MainCtrl">
       <div class="row">
         <div class="col-xs-12">
-          <h2>Martinet Build Status</h2>
+
+          <div ng-switch="params.error">
+            <div ng-switch-when="404">
+              <h3>404 Not Found</h3>
+              <p>The requested URL <strong>{{params.url}}</strong> does not exist.</p>
+              <p>Choose from the following pages in your project.</p>
+            </div>
+            <div ng-switch-when="fail">
+              <h3>Build Broken</h3>
+            </div>
+            <div ng-switch-default>
+              <h2>Martinet Build Status</h2>
+            </div>
+          </div>
 
           <div ng-repeat="page in buildState.pages">
             <div class="panel panel-default">
