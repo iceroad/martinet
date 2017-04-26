@@ -1,0 +1,36 @@
+{
+  "critics": {
+    "wc": { "limit": 5000 },
+    "lint": { "engine": "eslint" }
+  },
+  "ignore": [
+    "**/deps/**",
+    "**/node_modules/**",
+    "**/thirdparty/**",
+    "**/third_party/**",
+    "lib/cli.js"
+  ],
+  "dependencies": {
+    "unused-ignores": [
+      "typescript",
+      "less",
+      "vue-loader",
+      "vue-template-compiler",
+      "url-loader",
+      "style-loader",
+      "pug-html-loader",
+      "less-loader",
+      "json-loader",
+      "html-loader",
+      "file-loader",
+      "css-loader",
+      "copy-webpack-plugin",
+      "babel-preset-react",
+      "babel-preset-env",
+      "babel-loader",
+      "babel-core",
+      "awesome-typescript-loader",
+      "angular2-template-loader"
+    ]
+  }
+}
