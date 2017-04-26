@@ -1,0 +1,13 @@
+# Change Log
+
+## 1.0.1 - 2017-04-26
+
+### Added
+- Enable "martinet deploy" to an AWS S3 bucket.
+- Add support for 'paths.src' and 'paths.dist' in build specification.
+- Add support for compile-time constants in Javascript and Pug.
+- Better build status page and error display.
+
+### Fixed
+- Correct Vue version loaded.
+- Dangling empty directories in build output correctly deleted.
