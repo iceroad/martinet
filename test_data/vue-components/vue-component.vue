@@ -1,8 +1,7 @@
-<template>
-  <div>
-    <h1>vue-template-sentinel</h1>
-    <img src="./inner/test.jpg">
-  </div>
+<template lang="pug">
+  div
+    h1 vue-template-sentinel
+    img(src='./inner/test.jpg')
 </template>
 
 <script>
