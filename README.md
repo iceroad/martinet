@@ -34,6 +34,17 @@ Martinet processes all the pages listed in the `pages` section, producing an opt
     * [Single-file VueJs components](https://vuejs.org/v2/guide/single-file-components.html) (VueJs-2).
     * [Angular template bundler](https://github.com/TheLarkInn/angular2-template-loader) (Angular-2 and higher).
 
+After running `martinet build -o /tmp/output`, the `/tmp/output` directory will resemble the following directory listing (with different version identifiers).
+
+    index.html
+    about/index.html
+    __ver__/js.a9034893.js
+    __ver__/style.b8932a83.css
+
+You can now open the HTML files in a browser, or upload the contents of the directory to a webserver.
+
+In production mode (the default for `build`), the HTML, Javascript, and CSS files will be optimized and minified, and a content-based hexadecimal identifier added to the filename. Any references to the file will be updated to point to this new filename. The `__ver__` directory will contain versioned copies of all asset files that have been found in your project, and can be cached indefinitely for client-side performance.
+
 The design of Martinet favors **convention-over-configuration**. The target use case is to build small-to-medium static sites and single-page web applications, as well as combinations of the two.
 
 ### Install
@@ -70,3 +81,7 @@ Webpack yourself
 
 
 ----
+
+## Examples
+
+See the [test_data](https://github.com/iceroad/martinet/tree/master/test_data) directory for a number of example projects demonstrating different project layouts.
