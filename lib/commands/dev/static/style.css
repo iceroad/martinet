@@ -2,6 +2,12 @@ code {
   color: #333;
 }
 
+.panel {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
 .panel-heading {
   cursor: pointer;
 }

@@ -10,57 +10,76 @@
   </head>
   <body ng-app="app">
     <div class="container-fluid" ng-controller="MainCtrl">
+
       <div class="row">
         <div class="col-xs-12">
-
           <div ng-switch="params.error">
-            <div ng-switch-when="404">
-              <h3>404 Not Found</h3>
-              <p>The requested URL <strong>{{params.url}}</strong> does not exist.</p>
-              <p>Choose from the following pages in your project.</p>
+            <div ng-switch-when="404" class="panel panel-danger">
+              <div class="panel-heading">
+                <h3 class="panel-title">404 Not Found</h3>
+              </div>
+              <div class="panel-body">
+                <p>The requested URL <strong>{{params.url}}</strong> does not exist.</p>
+                <p>Choose from the following pages in your project.</p>
+              </div>
             </div>
-            <div ng-switch-when="fail">
-              <h3>Build Broken</h3>
+            <div ng-switch-when="build" class="panel panel-danger">
+              <div class="panel-heading">
+                <h3 class="panel-title">Build Broken</h3>
+              </div>
+              <div class="panel-body">
+                <p>Your project contains errors that must be fixed.</p>
+              </div>
             </div>
-            <div ng-switch-default>
-              <h2>Martinet Build Status</h2>
+            <div ng-switch-default class="text-center">
+              <h3>Martinet Build Status</h3>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div ng-repeat="page in buildState.pages">
-            <div class="panel panel-default">
-              <div class="panel-heading" ng-click="show_info=!show_info">
-                <h3 class="panel-title">
-                  <span ng-switch="page.status">
-                    <span ng-switch-when="ok" class="glyphicon glyphicon-ok text-success"></span>
-                    <span ng-switch-when="fail" class="glyphicon glyphicon-remove text-danger"></span>
-                    <span ng-switch-when="building" class="glyphicon glyphicon-cog text-info"></span>
-                    <span ng-switch-default class="glyphicon glyphicon-file"></span>
-                  </span>
-                  <a ng-href="/{{page.outputRelPath}}" target="_blank"><code>{{page.outputRelPath}}</code></a>
-                  <span class="metadata">
-                    <span ng-if="page.errors.length" class="text-danger">
-                      Errors: <strong>{{page.errors.length}}</strong>
-                    </span>
-                    <span ng-if="page.warnings.length" class="text-danger">
-                      Errors: <strong>{{page.warnings.length}}</strong>
-                    </span>
-                    <span ng-if="!show_info && (page.warnings.length || page.errors.length)">Click to show details.</span>
-                  </span>
-                </h3>
-              </div>
-              <div class="panel-body" ng-if="show_info">
+      <div ng-repeat="page in buildState.pages">
+        <div class="panel panel-default">
 
+          <div class="panel-heading"
+               ng-click="showPageInfo[page.outputRelPath] = !showPageInfo[page.outputRelPath]">
+            <h3 class="panel-title">
+              <span ng-switch="page.status">
+                <span ng-switch-when="ok" class="glyphicon glyphicon-ok text-success"></span>
+                <span ng-switch-when="fail" class="glyphicon glyphicon-remove text-danger"></span>
+                <span ng-switch-when="building">
+                  <img src="spinner.gif" style="height: 16px">
+                </span>
+                <span ng-switch-default class="glyphicon glyphicon-file"></span>
+              </span>
+              <span ng-switch="params.error">
+                <a ng-switch-when="404" ng-href="/{{page.outputRelPath}}"><code>{{page.outputRelPath}}</code></a>
+                <a ng-switch-when="build" ng-href="/{{page.outputRelPath}}"><code>{{page.outputRelPath}}</code></a>
+                <a ng-switch-default target="_blank" ng-href="/{{page.outputRelPath}}"><code>{{page.outputRelPath}}</code></a>
+              </span>
+              <span class="metadata">
+                <span ng-if="page.errors.length" class="text-danger">
+                  Errors: <strong>{{page.errors.length}}</strong>
+                </span>
+                <span ng-if="page.warnings.length" class="text-danger">
+                  Errors: <strong>{{page.warnings.length}}</strong>
+                </span>
+                <span ng-if="!showPageInfo[page.outputRelPath] && (page.warnings.length || page.errors.length)">Click to show details.</span>
+              </span>
+            </h3>
+          </div>
+
+          <div class="panel-body" ng-if="showPageInfo[page.outputRelPath]">
+            <div class="row">
+              <div class="col-xs-12">
                 <h4>Errors ({{page.errors.length}})</h4>
                 <div ng-repeat="error in page.errors">
                   <pre><code>{{error}}</code></pre>
                 </div>
-
                 <h4>Warnings ({{page.warnings.length}})</h4>
                 <div ng-repeat="warn in page.warnings">
                   <pre><code>{{warn}}</code></pre>
                 </div>
-
               </div>
             </div>
           </div>
