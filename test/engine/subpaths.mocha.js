@@ -2,10 +2,8 @@
 const _ = require('lodash'),
   assert = require('chai').assert,
   fs = require('fs'),
-  json = JSON.stringify,
   path = require('path'),
-  spawnSync = require('child_process').spawnSync,
-  readBuildSpec = require('../../lib/engine/readBuildSpec')
+  readBuildSpec = require('../../lib/engine/readBuildSpec'),
   temp = require('temp').track(),
   Engine = require('../../lib/engine/Engine')
   ;

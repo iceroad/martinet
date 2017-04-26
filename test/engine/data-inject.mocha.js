@@ -5,7 +5,7 @@ const _ = require('lodash'),
   json = JSON.stringify,
   path = require('path'),
   spawnSync = require('child_process').spawnSync,
-  readBuildSpec = require('../../lib/engine/readBuildSpec')
+  readBuildSpec = require('../../lib/engine/readBuildSpec'),
   temp = require('temp').track(),
   Engine = require('../../lib/engine/Engine')
   ;
