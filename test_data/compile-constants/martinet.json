@@ -1,0 +1,9 @@
+{
+  "pages": [
+    {
+      "src": "index.pug",
+      "dist": "index.html",
+      "scripts": ["app.js"]
+    }
+  ]
+}
