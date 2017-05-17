@@ -1,5 +1,18 @@
 # Change Log
 
+
+## [1.0.2] - 2017-05-17
+### Added
+- Allow stylesheets and favicons to be referenced/bundled via <link> tags.
+- Let favicon.ico be URL-encoded in "prod" config.
+
+### Fixed
+- Serve index.html on naked directory access.
+- Update Webpack resolve aliases for Vue.
+- Wrong compile-time constants in "dev" config.
+- Pug template local correctly rendered inside .vue single-file components.
+
+
 ## [1.0.1] - 2017-04-26
 ### Added
 - Enable "martinet deploy" to an AWS S3 bucket.
