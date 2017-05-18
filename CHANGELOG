@@ -1,6 +1,11 @@
 # Change Log
 
 
+## [1.0.3] - 2017-05-17
+### Added
+- Allow Martinet to be used from node_modules/.bin
+
+
 ## [1.0.2] - 2017-05-17
 ### Added
 - Allow stylesheets and favicons to be referenced/bundled via <link> tags.
