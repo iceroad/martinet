@@ -1,6 +1,6 @@
 {
   "name": "@iceroad/martinet",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simplified build system for static sites and single-page webapps, based on Webpack 2.",
   "main": "lib/engine",
   "scripts": {
