@@ -13,12 +13,15 @@ Martinet starts by looking for a build specification in a file called `martinet.
 This is an example of a build specification that mixes multiple template and style languages, in addition to base HTML and CSS.
 
     {
+      "global": {
+        "styles": [ "style-root.less" ],
+        "scripts": [ "progressive-enhancement.js" ]
+      },
       "pages": [
         {
           "src": "template.pug",
-          "data": ["some-data.json"],
-          "styles": ["style-root.less"],
-          "scripts": ["main-app.js"],
+          "data": [ "some-data.json" ],
+          "scripts": [ "analytics.js" ],
           "dist": "index.html"
         },
         {
@@ -39,6 +42,7 @@ Martinet processes all the pages listed in the `pages` section, producing an opt
   * Extra support for select modern web frameworks.
     * [Single-file VueJs components](https://vuejs.org/v2/guide/single-file-components.html) (VueJs-2).
     * [Angular template bundler](https://github.com/TheLarkInn/angular2-template-loader) (Angular-2 and higher).
+  * Incremental deployment to AWS S3 with the appropriate cache headers for versioned files.
 
 After running `martinet build -o /tmp/output`, the `/tmp/output` directory will resemble the following directory listing (with different version identifiers).
 
@@ -47,8 +51,7 @@ After running `martinet build -o /tmp/output`, the `/tmp/output` directory will 
     __ver__/js.a9034893.js
     __ver__/style.b8932a83.css
 
-You can now open the HTML files in a browser, or run `martinet deploy` to upload
-the web distribution to an AWS S3 bucket.
+You can now open the HTML files in a browser, or run `martinet deploy` to upload the web distribution to an AWS S3 bucket.
 
 In production mode (the default for `build`), the HTML, Javascript, and CSS files will be optimized and minified, and a content-based hexadecimal identifier added to the filename. Any references to the file will be updated to point to this new filename. The `__ver__` directory will contain versioned copies of all asset files that have been found in your project, and can be cached indefinitely for client-side performance.
 
