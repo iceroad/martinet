@@ -5,20 +5,36 @@
     "ecmaFeatures": {
       "jsx": false,
       "impliedStrict": true
+    },
+    "env": {
+      "node": true
     }
   },
-  "extends": "airbnb-base",
-  "plugins": [],
+  "globals": {
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "before": true,
+    "after": true,
+    "it": true
+  },
+  "extends": ["airbnb-base", "plugin:jasmine/recommended"],
+  "plugins": ["jasmine"],
   "rules": {
     "one-var": 0,
+    "guard-for-in": 0,
+    "no-arg-redefine": 0,
     "no-unused-vars": 1,
     "no-console": 0,
-    "no-empty": 0,
+    "global-require": 0,
     "prefer-spread": 0,
     "no-underscore-dangle": 0,
     "no-lonely-if": 0,
+    "no-empty": 0,
     "no-multi-assign": 0,
     "class-methods-use-this": 0,
+    "import/no-extraneous-dependencies": 1,
+    "import/no-dynamic-require": 0,
     "key-spacing": 0,
     "no-plusplus": 0,
     "one-var-declaration-per-line": 0,
@@ -27,6 +43,7 @@
     "no-shadow": 0,
     "arrow-body-style": 0,
     "no-param-reassign": 0,
-    "prefer-template": 1
+    "no-unneeded-ternary": 0,
+    "import/no-extraneous-dependencies": [2, {"devDependencies": true}]
   }
 }
