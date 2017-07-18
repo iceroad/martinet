@@ -6,7 +6,7 @@
 [![bitHound Dependencies](https://www.bithound.io/github/iceroad/martinet/badges/dependencies.svg)](https://www.bithound.io/github/iceroad/martinet/master/dependencies/npm)
 
 
-Martinet is an opinionated, command-line build tool for static websites and single-page webapps, built on the [Webpack 2](https://webpack.github.io/) module bundler. Its purpose is to bring you all the power and modern features of Webpack 2, without having to interact with Webpack itself. It is suited for those who want to build static websites, hybrid single page applications, and combinations of the two.
+Martinet is an opinionated, command-line build tool for static websites and single-page webapps, built on the [Webpack](https://webpack.github.io/) module bundler. Its purpose is to bring you all the power and modern features of Webpack, without having to interact with Webpack itself. It is suited for those who want to build static websites, hybrid single page applications, and combinations of the two.
 
 Martinet starts by looking for a build specification in a file called `martinet.json`.
 
@@ -47,7 +47,8 @@ After running `martinet build -o /tmp/output`, the `/tmp/output` directory will 
     __ver__/js.a9034893.js
     __ver__/style.b8932a83.css
 
-You can now open the HTML files in a browser, or upload the contents of the directory to a webserver.
+You can now open the HTML files in a browser, or run `martinet deploy` to upload
+the web distribution to an AWS S3 bucket.
 
 In production mode (the default for `build`), the HTML, Javascript, and CSS files will be optimized and minified, and a content-based hexadecimal identifier added to the filename. Any references to the file will be updated to point to this new filename. The `__ver__` directory will contain versioned copies of all asset files that have been found in your project, and can be cached indefinitely for client-side performance.
 
@@ -84,7 +85,6 @@ Webpack yourself
        * CSS: `@import '~bootstrap';`  **note the tilde (~)**
        * Less: `@import '~bootstrap/less/bootstrap.less';`
        * Pug: not applicable
-
 
 ----
 
