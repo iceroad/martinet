@@ -35,31 +35,21 @@ describe('Engine: Webpack tree-shaking', function() {
 
       // Ensure that removing the unused function lead to a warning.
       assert.isTrue(stats.hasWarnings());  // for unused function removal
-      const warnings = _.get(stats, 'compilation.warnings', []);
+      const warnings = _.get(stats, 'warnings', []);
       assert.strictEqual(warnings.length, 1);
-      assert.match(warnings[0].message, /unused function func2/i);
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(_.sortBy(outDirContents), ['__ver__', 'index.html']);
       const versionedFiles = fs.readdirSync(path.join(outputRoot, '__ver__'));
       assert.strictEqual(versionedFiles.length, 1);
 
       // Read bundle, ensure both functions are present.
-      const bundlePath = path.join(outDir, '__ver__', versionedFiles[0]);
+      const bundlePath = path.join(outputRoot, '__ver__', versionedFiles[0]);
       const bundle = fs.readFileSync(bundlePath, 'utf-8');
       assert.match(bundle, /sentinel_1/mgi);
       assert.notMatch(bundle, /sentinel_2/mgi);
       assert.notMatch(bundle, /\/\*\*/mgi);
-
-      // Check file dependencies.
-      const fileDeps = _.get(stats, 'compilation.fileDependencies', []);
-      assert.strictEqual(fileDeps.length, 7);
-      assert.deepEqual(
-          _.sortBy(_.map(fileDeps, absPath => path.basename(absPath))),
-          ['entry.js', 'global.js', 'index.html', 'library.js',
-          'lodash.js', 'martinet_imports.js', 'module.js']);
 
       // Finally execute bundle using node.
       const rv = spawnSync(process.execPath, [bundlePath], { stdio: 'pipe' });
@@ -89,21 +79,16 @@ describe('Engine: Webpack tree-shaking', function() {
       assert.isFalse(stats.hasWarnings());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(_.sortBy(outDirContents), ['__ver__', 'index.html']);
       const versionedFiles = fs.readdirSync(path.join(outputRoot, '__ver__'));
       assert.strictEqual(versionedFiles.length, 1);
 
       // Read bundle, ensure both functions are present.
-      const bundlePath = path.join(outDir, '__ver__', versionedFiles[0]);
+      const bundlePath = path.join(outputRoot, '__ver__', versionedFiles[0]);
       const bundle = fs.readFileSync(bundlePath, 'utf-8');
       assert.match(bundle, /sentinel_1/mgi);
       assert.match(bundle, /sentinel_2/mgi);
-
-      // Check file dependencies.
-      const fileDeps = _.get(stats, 'compilation.fileDependencies', []);
-      assert.strictEqual(fileDeps.length, 7);
 
       return cb();
     });
@@ -126,14 +111,13 @@ describe('Engine: Webpack tree-shaking', function() {
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(_.sortBy(outDirContents), ['__ver__', 'index.html']);
       const versionedFiles = fs.readdirSync(path.join(outputRoot, '__ver__'));
       assert.strictEqual(versionedFiles.length, 1);
 
       // Read bundle, ensure both functions are present.
-      const bundlePath = path.join(outDir, '__ver__', versionedFiles[0]);
+      const bundlePath = path.join(outputRoot, '__ver__', versionedFiles[0]);
       const bundle = fs.readFileSync(bundlePath, 'utf-8');
       assert.match(bundle, /sentinel_1/mgi);
       assert.notMatch(bundle, /sentinel_2/mgi);

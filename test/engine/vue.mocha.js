@@ -31,15 +31,14 @@ describe('Engine: Vue single-file components support', function() {
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
-      const outDirContents = fs.readdirSync(outputRoot);
-      assert.deepEqual(_.sortBy(outDirContents), ['__ver__', 'index.html']);
+      const outputRootContents = fs.readdirSync(outputRoot);
+      assert.deepEqual(_.sortBy(outputRootContents), ['__ver__', 'index.html']);
       const versionedFiles = fs.readdirSync(path.join(outputRoot, '__ver__'));
       assert.strictEqual(versionedFiles.length, 4);       // .map, .bundle.js, .css, and .jpg
 
       // Read JS bundle, ensure sentinels are present.
       const bundleFilename = _.find(versionedFiles, fileInfo => fileInfo.match(/\.js$/));
-      const bundlePath = path.join(outDir, '__ver__', bundleFilename);
+      const bundlePath = path.join(outputRoot, '__ver__', bundleFilename);
       const bundle = fs.readFileSync(bundlePath, 'utf-8');
       assert.match(bundle, /vue-script-sentinel/mgi);
       assert.match(bundle, /vue-template-sentinel/mgi);
@@ -47,7 +46,7 @@ describe('Engine: Vue single-file components support', function() {
 
       // Read CSS bundle, ensure sentinel is present.
       const styleFilename = _.find(versionedFiles, fileInfo => fileInfo.match(/\.css$/));
-      const stylePath = path.join(outDir, '__ver__', styleFilename);
+      const stylePath = path.join(outputRoot, '__ver__', styleFilename);
       const style = fs.readFileSync(stylePath, 'utf-8');
       assert.match(style, /vue-style-sentinel/mgi);
       assert.notMatch(style, /vue-script-sentinel/mgi);
@@ -78,15 +77,14 @@ describe('Engine: Vue single-file components support', function() {
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
-      const outDirContents = fs.readdirSync(outputRoot);
-      assert.deepEqual(_.sortBy(outDirContents), ['__ver__', 'index.html']);
+      const outputRootContents = fs.readdirSync(outputRoot);
+      assert.deepEqual(_.sortBy(outputRootContents), ['__ver__', 'index.html']);
       const versionedFiles = fs.readdirSync(path.join(outputRoot, '__ver__'));
       assert.strictEqual(versionedFiles.length, 3);       // .bundle.js, .css, and .jpg
 
       // Read JS bundle, ensure sentinels are present.
       const bundleFilename = _.find(versionedFiles, fileInfo => fileInfo.match(/\.js$/));
-      const bundlePath = path.join(outDir, '__ver__', bundleFilename);
+      const bundlePath = path.join(outputRoot, '__ver__', bundleFilename);
       const bundle = fs.readFileSync(bundlePath, 'utf-8');
       assert.match(bundle, /vue-script-sentinel/mgi);
       assert.match(bundle, /vue-template-sentinel/mgi);
@@ -94,7 +92,7 @@ describe('Engine: Vue single-file components support', function() {
 
       // Read CSS bundle, ensure sentinel is present.
       const styleFilename = _.find(versionedFiles, fileInfo => fileInfo.match(/\.css$/));
-      const stylePath = path.join(outDir, '__ver__', styleFilename);
+      const stylePath = path.join(outputRoot, '__ver__', styleFilename);
       const style = fs.readFileSync(stylePath, 'utf-8');
       assert.match(style, /vue-style-sentinel/mgi);
       assert.notMatch(style, /vue-script-sentinel/mgi);

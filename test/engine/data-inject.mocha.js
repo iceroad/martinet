@@ -36,7 +36,6 @@ describe('Engine: template+data only pages', function() {
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(
           _.sortBy(outDirContents),
@@ -45,12 +44,12 @@ describe('Engine: template+data only pages', function() {
       assert.strictEqual(versionedFiles.length, 1);
 
       // Read index.html, ensure sentinel from data file is present.
-      let htmlPath = path.join(outDir, 'index.html');
+      let htmlPath = path.join(outputRoot, 'index.html');
       let html = fs.readFileSync(htmlPath, 'utf-8');
       assert.match(html, /12345678/mi);
 
       // Read no-data.html, ensure sentinel is not present.
-      htmlPath = path.join(outDir, 'no-data.html');
+      htmlPath = path.join(outputRoot, 'no-data.html');
       html = fs.readFileSync(htmlPath, 'utf-8');
       assert.notMatch(html, /12345678/mi);
 

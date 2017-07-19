@@ -35,7 +35,6 @@ describe('Engine: compile-time constants for conditional compilation', function(
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(
           _.sortBy(outDirContents),
@@ -44,7 +43,7 @@ describe('Engine: compile-time constants for conditional compilation', function(
       assert.strictEqual(versionedFiles.length, 1);
 
       // Read js file, ensure conditional compilation occurred.
-      let jsPath = path.join(outDir, '__ver__', versionedFiles[0]);
+      let jsPath = path.join(outputRoot, '__ver__', versionedFiles[0]);
       let js = fs.readFileSync(jsPath, 'utf-8');
       assert.match(js, /config:prod/mi);
       assert.notMatch(js, /config:dev/mi);
@@ -52,7 +51,7 @@ describe('Engine: compile-time constants for conditional compilation', function(
 
 
       // Ensure that the Pug file had access to $martinet.
-      const html = fs.readFileSync(path.join(outDir, 'index.html'), 'utf-8');
+      const html = fs.readFileSync(path.join(outputRoot, 'index.html'), 'utf-8');
       assert.notMatch(html, /pug_sentinel:dev/i);
       assert.notMatch(html, /pug_sentinel:unknown/i);
       assert.match(html, /pug_sentinel:prod/i);
@@ -79,7 +78,6 @@ describe('Engine: compile-time constants for conditional compilation', function(
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(
           _.sortBy(outDirContents),
@@ -89,7 +87,7 @@ describe('Engine: compile-time constants for conditional compilation', function(
 
       // Read js file, all versions of conditional compilation should be
       // included (i.e., no code removal).
-      let jsPath = path.join(outDir, '__ver__', versionedFiles[0]);
+      let jsPath = path.join(outputRoot, '__ver__', versionedFiles[0]);
       let js = fs.readFileSync(jsPath, 'utf-8');
       assert.match(js, /config:prod/mi);
       assert.match(js, /config:dev/mi);
@@ -103,7 +101,7 @@ describe('Engine: compile-time constants for conditional compilation', function(
       assert.notMatch(rv.stdout.toString('utf-8'), /config:unknown/mgi);
 
       // Ensure that the Pug file had access to $martinet.
-      const html = fs.readFileSync(path.join(outDir, 'index.html'), 'utf-8');
+      const html = fs.readFileSync(path.join(outputRoot, 'index.html'), 'utf-8');
       assert.match(html, /pug_sentinel:dev/i);
       assert.notMatch(html, /pug_sentinel:prod/i);
       assert.notMatch(html, /pug_sentinel:unknown/i);

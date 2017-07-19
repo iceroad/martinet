@@ -34,7 +34,6 @@ describe('Engine: projects that specify sub-paths', function() {
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(_.sortBy(outDirContents), ['__ver__', 'index.html']);
       const versionedFiles = fs.readdirSync(path.join(outputRoot, '__ver__'));
@@ -42,13 +41,13 @@ describe('Engine: projects that specify sub-paths', function() {
 
       // Read JS bundle, ensure Typescript was compiled.
       const bundlePath = path.join(
-          outDir, '__ver__', _.find(versionedFiles, f => f.match(/\.js$/)));
+          outputRoot, '__ver__', _.find(versionedFiles, f => f.match(/\.js$/)));
       const bundle = fs.readFileSync(bundlePath, 'utf-8');
       assert.match(bundle, /Hello, world/mi, 'TypeScript not compiled.');
       assert.notMatch(bundle, /public greeting:/mi, 'TypeScript not compiled.');
 
       // Read HTML bundle, ensure image was correctly referenced.
-      const htmlPath = path.join(outDir, 'index.html');
+      const htmlPath = path.join(outputRoot, 'index.html');
       const html = fs.readFileSync(htmlPath, 'utf-8');
       assert.match(html, /img src=__ver__\/sample\.[a-f0-9]+\.jpg/mi);
       assert.match(html, /pug_sentinel/mi);

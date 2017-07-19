@@ -35,6 +35,7 @@ Martinet processes all the pages listed in the `pages` section, producing an opt
 
   * Modern language support: [ES2017](https://babeljs.io/docs/plugins/preset-latest/), [TypeScript](https://www.typescriptlang.org/), [LessCSS](http://lesscss.org/), [Pug](https://pugjs.org/api/getting-started.html), in addition to HTML and CSS.
   * Support for dependencies installed via `npm`.
+  * Parallel Webpack builds to take advantage of multicore systems.
   * Asset bundling and versioning, for separating cacheable content.
   * Tree-shaking on ES6 modules, resulting in smaller bundles.
   * Auto-refreshing web server for development.

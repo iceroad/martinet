@@ -37,7 +37,6 @@ describe('Engine: Javascript modules should be able to require static JSON',
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(
           _.sortBy(outDirContents),
@@ -46,7 +45,7 @@ describe('Engine: Javascript modules should be able to require static JSON',
       assert.strictEqual(versionedFiles.length, 1);
 
       // Read js file, ensure conditional compilation occurred.
-      let jsPath = path.join(outDir, '__ver__', versionedFiles[0]);
+      let jsPath = path.join(outputRoot, '__ver__', versionedFiles[0]);
       let js = fs.readFileSync(jsPath, 'utf-8');
       assert.match(js, /data_sentinel:{nested:12345}/i);
 
@@ -72,7 +71,6 @@ describe('Engine: Javascript modules should be able to require static JSON',
       assert.isFalse(stats.hasErrors());
 
       // Ensure output directory matches expectation.
-      const outDir = _.get(stats, 'compilation.outputOptions.path');
       const outDirContents = fs.readdirSync(outputRoot);
       assert.deepEqual(
           _.sortBy(outDirContents),
@@ -81,7 +79,7 @@ describe('Engine: Javascript modules should be able to require static JSON',
       assert.strictEqual(versionedFiles.length, 1);
 
       // Read js file, ensure conditional compilation occurred.
-      let jsPath = path.join(outDir, '__ver__', versionedFiles[0]);
+      let jsPath = path.join(outputRoot, '__ver__', versionedFiles[0]);
       let js = fs.readFileSync(jsPath, 'utf-8');
       assert.match(js, /data_sentinel/i);
 
