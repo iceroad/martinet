@@ -37,3 +37,8 @@ pre code {
 .build-warning {
   background-color: #ffa6af;
 }
+
+.fixed-cell {
+  width: 75px;
+  text-align: center;
+}

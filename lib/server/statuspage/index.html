@@ -63,9 +63,9 @@
           <table class="table table-unstyled">
             <tr>
               <th>Page</th>
-              <th>Status</th>
-              <th>Errors</th>
-              <th>Warnings</th>
+              <th class="fixed-cell">Status</th>
+              <th class="fixed-cell">Errors</th>
+              <th class="fixed-cell">Warnings</th>
             </tr>
             <tr ng-class="{
                 'build-error':pageState.errors.length, 'build-warning':pageState.warnings.length}"
@@ -73,9 +73,17 @@
               <td>
                 <a ng-click="main.setPageDetail(pageOut)">{{pageOut}}</a>
               </td>
-              <td>{{pageState.status}}</td>
-              <td>{{pageState.errors.length}}</td>
-              <td>{{pageState.warnings.length}}</td>
+              <td class="fixed-cell">
+                <span ng-class="{
+                  'text-success': pageState.status === 'done',
+                  'text-danger': pageState.status === 'fail',
+                  'text-info': pageState.status === 'building'
+                }">
+                  {{pageState.status}}
+                </span>
+              </td>
+              <td class="fixed-cell">{{pageState.errors.length}}</td>
+              <td class="fixed-cell">{{pageState.warnings.length}}</td>
             </tr>
           </table>
         </div>
@@ -96,13 +104,13 @@
             <table class='table table-unstyled'>
               <tr>
                 <th>Name</th>
-                <th>Size</th>
-                <th>Chunks</th>
+                <th class="fixed-cell">Size</th>
+                <th class="fixed-cell">Chunks</th>
               </tr>
               <tr ng-repeat="asset in main.pageDetails.assets">
                 <td>{{asset.name}}</td>
-                <td>{{asset.size | number}}</td>
-                <td>{{asset.chunkNames.join(', ')}}</td>
+                <td class="fixed-cell">{{asset.size | number}}</td>
+                <td class="fixed-cell">{{asset.chunkNames.join(', ')}}</td>
               </tr>
             </table>
           </div>
