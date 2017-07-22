@@ -1,3 +1,7 @@
+a {
+  cursor: pointer;
+}
+
 code {
   color: #333;
 }
@@ -19,4 +23,17 @@ code {
 pre code {
   font-size: 14px;
   line-height: 105%;
+}
+
+.build-error {
+  background-color: red;
+  color: white;
+}
+
+.build-error a {
+  color: white;
+}
+
+.build-warning {
+  background-color: #ffa6af;
 }

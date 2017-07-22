@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Martinet Build Status</title>
+    <link rel="stylesheet" href="deps/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body ng-app="app" class="ng-cloak">
+    <div class="container-fluid" ng-controller="MainCtrl as main">
+      <div class="row">
+
+        <div class="col-xs-12" ng-switch="state.status">
+
+          <!-- Build status: INIT -->
+          <div ng-switch-when="init">
+            <h2><img src="spinner.gif"> Initializing...</h2>
+          </div>
+
+          <!-- Build status: BUILDING -->
+          <div ng-switch-when="building">
+            <h2><img src="spinner.gif"> Building...</h2>
+          </div>
+
+          <!-- Build status: ERROR -->
+          <div ng-switch-when="error">
+            <h2>Martinet: <strong>build error</strong></h2>
+            <div ng-switch="state.error.reason">
+
+              <!-- Build status: ERROR: Bad build specification -->
+              <div ng-switch-when="bad_spec">
+                <h3>Error parsing <code>martinet.json</code></h3>
+                <pre>{{state.error.text}}</pre>
+              </div>
+
+              <!-- Build status: ERROR: Cannot spawn workers -->
+              <div ng-switch-when="worker_error">
+                <h3>Error creating build worker child processes.</h3>
+                <pre>{{state.error.text}}</pre>
+              </div>
+
+              <!-- Build status: ERROR: Project build failed -->
+              <div ng-switch-when="build_failed">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Build status: DONE -->
+          <div ng-switch-when="done">
+            <h2>Martinet: <strong>build OK</strong></h2>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+
+        <!-- Per-page compilation status display -->
+        <div class="col-xs-12 col-md-6">
+          <table class="table table-unstyled">
+            <tr>
+              <th>Page</th>
+              <th>Status</th>
+              <th>Errors</th>
+              <th>Warnings</th>
+            </tr>
+            <tr ng-class="{
+                'build-error':pageState.errors.length, 'build-warning':pageState.warnings.length}"
+                ng-repeat="(pageOut, pageState) in state.build.pageStates">
+              <td>
+                <a ng-click="main.setPageDetail(pageOut)">{{pageOut}}</a>
+              </td>
+              <td>{{pageState.status}}</td>
+              <td>{{pageState.errors.length}}</td>
+              <td>{{pageState.warnings.length}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Page details -->
+        <div class="col-xs-12 col-md-6">
+          <div ng-if="main.pageDetails.errors.length">
+            <h3>Errors</h3>
+            <pre ng-repeat="err in main.pageDetails.errors">{{err}}</pre>
+          </div>
+          <div ng-if="main.pageDetails.warnings.length">
+            <h3>Errors</h3>
+            <pre ng-repeat="warn in main.pageDetails.warnings">{{warn}}</pre>
+          </div>
+
+          <div ng-if="main.pageDetails.assets.length">
+            <h3>Assets</h3>
+            <table class='table table-unstyled'>
+              <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Chunks</th>
+              </tr>
+              <tr ng-repeat="asset in main.pageDetails.assets">
+                <td>{{asset.name}}</td>
+                <td>{{asset.size | number}}</td>
+                <td>{{asset.chunkNames.join(', ')}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="deps/jquery.min.js"></script>
+    <script src="deps/angular.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
